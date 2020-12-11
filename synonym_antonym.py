@@ -1,3 +1,6 @@
+# If you want to copy this code, make sure that you have install the PyDictionary module
+# Install ---> pip install PyDictionary
+
 from PyDictionary import PyDictionary
 dictionary = PyDictionary()
 
