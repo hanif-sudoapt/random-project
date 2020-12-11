@@ -8,6 +8,7 @@ def welcome(name):
     print('======================================================================================================')
     print(f'Welcome {name}, this program was made for people who want to search an antonym or synonym from a word')
     print('======================================================================================================')
+    print('*warning, you just can input one word! not more')
 
 def choice():
     print()
