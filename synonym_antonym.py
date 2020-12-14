@@ -40,7 +40,7 @@ def antonym():
     choice()
 
 def exit_out():
-    print("Thanks for using this program :)")
+    print("Thanks for using this program :)\n")
 
 
 name = input('Type in your name: ')
