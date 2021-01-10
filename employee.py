@@ -3,7 +3,7 @@
 # There is 2 parents class, Menu and Function
 # Salary on this program, is in a dollar currency
 
-# I'm sorry if the comments below, is in Indonesian Language 
+# I'm sorry if the comments below, is in Indonesian Language
 '''
 First point, disuguhkan 5 pilihan. 1. Input Employee baru, 2. Data Semua employee, 3. Menghitung Rata-rata gaji 
 seluruh karyawan, 4. Jumlah karyawan yang telah diinput, 5. Exit --> Ini semua akan berada di dalam class Menu
@@ -23,10 +23,10 @@ employee_data = {}
 class Menu:
 
     @staticmethod
+    # this is gonna be the main view
     def menu_choice():
         # This function will appeared in the first time, for getting a choice from user
-        print(line)
-        print("1. Input a new Employee\n2. Employee Data\n3. Average of all Employee Salary\n4. The many of Employee\n5. Exit")
+        print(f"{line}\n1. Input a new Employee\n2. Employee Data\n3. Average of all Employee Salary\n4. The many of Employee\n5. Exit")
         answer = input(line + "\n: ")
         if answer == "1":
             # get into the function, for input a new Employee
@@ -51,9 +51,12 @@ class Function:
     def input_employee():
         employee_name = input("Enter the Employee name: ")
         employee_salary = int(input("Enter the Employee salary: "))
+        input(" ")
+        print("Employee added !")
         # In here, Employee name and salary data are gonna get stored into the employee_data dictionary
         employee_data[employee_name] = employee_salary
         Menu.menu_choice()
+        # back to the main view
 
     @staticmethod
     def data_employee_display():
@@ -62,6 +65,7 @@ class Function:
             print(f"Name: {key}, Salary: ${value}")
         input(" ")
         Menu.menu_choice()
+        # back to the main view
 
     @staticmethod
     def average_salary():
@@ -72,6 +76,7 @@ class Function:
         print(f"\nThe average salary --> ${average_salary}")
         input(" ")
         Menu.menu_choice()
+        # back to the main view
 
     @staticmethod
     def many_employee():
@@ -79,6 +84,7 @@ class Function:
         print(f"\nThere is total, {total_employee} employee")
         input(" ")
         Menu.menu_choice()
+        # back to the main view
 
 Menu.menu_choice()
  # This is for showing up the main view
