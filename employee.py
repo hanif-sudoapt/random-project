@@ -3,6 +3,7 @@
 # There is 2 parents class, Menu and Function
 # Salary on this program, is in a dollar currency
 
+# I'm sorry if the comments below, is in Indonesian Language 
 '''
 First point, disuguhkan 5 pilihan. 1. Input Employee baru, 2. Data Semua employee, 3. Menghitung Rata-rata gaji 
 seluruh karyawan, 4. Jumlah karyawan yang telah diinput, 5. Exit --> Ini semua akan berada di dalam class Menu
@@ -15,32 +16,33 @@ Second point,
 5. --> Exit (keluar dari program)
 '''
 
+# the place of any kind variable
 line = "==============="
 employee_data = {}
 
 class Menu:
 
-    @staticmethod # seluruh @staticmethod di dalem program ini keknya ga guna dah hahah, baru engeh juga
+    @staticmethod
     def menu_choice():
         # This function will appeared in the first time, for getting a choice from user
         print(line)
         print("1. Input a new Employee\n2. Employee Data\n3. Average of all Employee Salary\n4. The many of Employee\n5. Exit")
         answer = input(line + "\n: ")
         if answer == "1":
-            # masuk ke fungsi untuk input karyawan
+            # get into the function, for input a new Employee
             Function.input_employee()
         elif answer == "2":
-            # masuk ke fungsi untuk print data seluruh karyawan
+            # get into the function, for printing all of the Employee data that have been stored
             Function.data_employee_display()
         elif answer == "3":
-            # masuk ke fungsi untuk menghitung rata" gaji karyawan
+            # get into the function, for counting the average salary of all Employee
             Function.average_salary()
         elif answer == "4":
-            # masuk ke fungsi untuk menghitung banyak karyawan yang telah didata
+            # get into the function, for counting how many are the Employee that have been registered
             Function.many_employee()
         else:
             pass
-            # exit dari program
+            # exit from the program
 
 
 class Function:
@@ -49,7 +51,7 @@ class Function:
     def input_employee():
         employee_name = input("Enter the Employee name: ")
         employee_salary = int(input("Enter the Employee salary: "))
-        # disini, data nama dan karyawan akan di store ke dictionary employee_data
+        # In here, Employee name and salary data are gonna get stored into the employee_data dictionary
         employee_data[employee_name] = employee_salary
         Menu.menu_choice()
 
@@ -61,6 +63,7 @@ class Function:
         input(" ")
         Menu.menu_choice()
 
+    @staticmethod
     def average_salary():
         total = 0
         for salary in employee_data.values():
@@ -70,6 +73,7 @@ class Function:
         input(" ")
         Menu.menu_choice()
 
+    @staticmethod
     def many_employee():
         total_employee = len(employee_data)
         print(f"\nThere is total, {total_employee} employee")
@@ -77,7 +81,7 @@ class Function:
         Menu.menu_choice()
 
 Menu.menu_choice()
-
+ # This is for showing up the main view
 
 
         
