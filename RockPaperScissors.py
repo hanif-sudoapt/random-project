@@ -44,7 +44,7 @@ while run:
             computer_score += 1
 
     elif player_choice == "Scissors":
-        if computer_score == "Paper":
+        if computer_choice == "Paper":
             print(player_won)
             player_score += 1
 
@@ -56,7 +56,8 @@ while run:
         break
 
     else:
-        print("Invalid Input")
+        print("\nInvalid Input !\n")
+        player_choice = "(Input Error)"
     
     print(f"- Player: {player_choice}")
     print(f"- Computer: {computer_choice}")
