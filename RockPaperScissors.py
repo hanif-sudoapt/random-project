@@ -63,5 +63,3 @@ while run:
     
     print(f"- {name}: {player_choice}")
     print(f"- Computer: {computer_choice}\n")
-
-# "print a string when the game is get quit, make a name input for the user, and edit some line"
