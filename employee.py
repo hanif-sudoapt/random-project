@@ -15,19 +15,46 @@
 # 4. --> Maka, fungsi akan print jumlah karyawan yang telah diinput. Lalu kembali ke menu awal
 # 5. --> Exit (keluar dari program)
 
+from os import system, name
+from time import sleep
 
-# the place of any kind variable
-line = "==============="
+# a dictionary for stored the employee data
 employee_data = {}
+
+
+def clear():
+
+    if name == "nt":
+        _ = system("cls")
+    elif name == "posix":
+        _ = system("clear")
+
+
+def loading(times):
+    clear()
+    print("loading " + ". " * times)
+
+
+def loading_animation(number, second):
+    i = 1
+    while i <= number:
+        loading(i)
+        sleep(second)
+        i += 1
+    clear()
 
 class Menu:
 
     @staticmethod
     # this is gonna be the main view
     def menu_choice():
+
+        # a loading animation and for clear the screen before
+        loading_animation(5, 0.3)
+
         # This function will appeared in the first time, for getting a choice from user
-        print(f"{line}\n1. Input a new Employee\n2. Employee Data\n3. Average of all Employee Salary\n4. The many of Employee\n5. Exit")
-        answer = input(line + "\n: ")
+        print(f"1. Input a new Employee\n2. Employee Data\n3. Average of all Employee Salary\n4. The many of Employee\n\n(press (Enter) for exit)")
+        answer = input("\n: ")
         if answer == "1":
             # get into the function, for input a new Employee
             Function.input_employee()
@@ -41,7 +68,7 @@ class Menu:
             # get into the function, for counting how many are the Employee that have been registered
             Function.many_employee()
         else:
-            pass
+            loading_animation(10, 0.15)  
             # exit from the program
 
 
@@ -49,40 +76,93 @@ class Function:
 
     @staticmethod
     def input_employee():
+
+        # a loading animation and for clear the screen before
+        loading_animation(5, 0.15)
+
         employee_name = input("Enter the Employee name: ")
-        employee_salary = int(input("Enter the Employee salary: "))
-        input(" ")
-        print("Employee added !")
-        # In here, Employee name and salary data are gonna get stored into the employee_data dictionary
-        employee_data[employee_name] = employee_salary
-        Menu.menu_choice()
-        # back to the main view
+
+        try:
+            employee_salary = int(input("Enter the Employee salary: "))
+            input("\npress (ENTER) please")
+            print("\nEmployee added !")
+
+            # add sleep for a few second
+            sleep(2)
+
+            # In here, Employee name and salary data are gonna get stored into the employee_data dictionary
+            employee_data[employee_name] = employee_salary
+            Menu.menu_choice()
+            # back to the main view
+
+        except ValueError:
+
+            print("\nSalary must be in integer !")
+            sleep(3.5)
+            Function.input_employee()
+        
+        # input("\npress (ENTER) please")
+        # print("\nEmployee added !")
+
+        # # add sleep for a few second
+        # sleep(2)
+
+        # # In here, Employee name and salary data are gonna get stored into the employee_data dictionary
+        # employee_data[employee_name] = employee_salary
+        # Menu.menu_choice()
+        # # back to the main view
 
     @staticmethod
     def data_employee_display():
-        print()
-        for key, value in employee_data.items():
-            print(f"Name: {key}, Salary: ${value}")
-        input(" ")
+
+        # a loading animation and for clear the screen before
+        loading_animation(5, 0.2)
+
+        if employee_data == {}:
+            print("No Employee Added")
+        else:
+            for key, value in employee_data.items():
+                print(f"Name: {key}, Salary: ${value}")
+
+        input("\npress (ENTER) please")
+
         Menu.menu_choice()
         # back to the main view
 
     @staticmethod
     def average_salary():
-        total = 0
-        for salary in employee_data.values():
-            total += salary
-        average_salary = total / len(employee_data)
-        print(f"\nThe average salary --> ${average_salary}")
-        input(" ")
+
+        # a loading animation and for clear the screen before
+        loading_animation(5, 0.2)
+
+        try:
+
+            total = 0
+            for salary in employee_data.values():
+                total += salary
+            average_salary = total / len(employee_data)
+            print(f"\nThe average salary --> ${round(average_salary, 2)}")
+
+        except ZeroDivisionError:
+            # if the employee total is 0, then this will be printed
+            print("No Employee added")
+
+        input("\npress (ENTER) please")
+
         Menu.menu_choice()
         # back to the main view
 
     @staticmethod
     def many_employee():
+
+        # a loading animation and for clear the screen before
+        loading_animation(5, 0.2)
+
         total_employee = len(employee_data)
         print(f"\nThere is total, {total_employee} employee")
-        input(" ")
+
+        input("\npress (ENTER) please")
+
         Menu.menu_choice()
         # back to the main view
 
