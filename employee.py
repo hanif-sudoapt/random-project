@@ -100,17 +100,6 @@ class Function:
             print("\nSalary must be in integer !")
             sleep(3.5)
             Function.input_employee()
-        
-        # input("\npress (ENTER) please")
-        # print("\nEmployee added !")
-
-        # # add sleep for a few second
-        # sleep(2)
-
-        # # In here, Employee name and salary data are gonna get stored into the employee_data dictionary
-        # employee_data[employee_name] = employee_salary
-        # Menu.menu_choice()
-        # # back to the main view
 
     @staticmethod
     def data_employee_display():
