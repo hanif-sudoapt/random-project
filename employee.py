@@ -4,17 +4,17 @@
 # Salary on this program, is in a dollar currency
 
 # I'm sorry if the comments below, is in Indonesian Language
-'''
-First point, disuguhkan 5 pilihan. 1. Input Employee baru, 2. Data Semua employee, 3. Menghitung Rata-rata gaji 
-seluruh karyawan, 4. Jumlah karyawan yang telah diinput, 5. Exit --> Ini semua akan berada di dalam class Menu
 
-Second point, 
-1. --> Maka pertama disuruh input nama dan gaji karyawan. Lalu kembali ke menu awal
-2. --> Maka, fungsi akan print data semua employee dengan urutan ke bawah. Lalu kembali ke menu awal
-3. --> Maka, fungsi akan menghitung dan print rata-rata gaji dari seluruh karyawan yang sudah di data. Lalu kembali ke menu awal
-4. --> Maka, fungsi akan print jumlah karyawan yang telah diinput. Lalu kembali ke menu awal
-5. --> Exit (keluar dari program)
-'''
+# First point, disuguhkan 5 pilihan. 1. Input Employee baru, 2. Data Semua employee, 3. Menghitung Rata-rata gaji 
+# seluruh karyawan, 4. Jumlah karyawan yang telah diinput, 5. Exit --> Ini semua akan berada di dalam class Menu
+
+# Second point, 
+# 1. --> Maka pertama disuruh input nama dan gaji karyawan. Lalu kembali ke menu awal
+# 2. --> Maka, fungsi akan print data semua employee dengan urutan ke bawah. Lalu kembali ke menu awal
+# 3. --> Maka, fungsi akan menghitung dan print rata-rata gaji dari seluruh karyawan yang sudah di data. Lalu kembali ke menu awal
+# 4. --> Maka, fungsi akan print jumlah karyawan yang telah diinput. Lalu kembali ke menu awal
+# 5. --> Exit (keluar dari program)
+
 
 # the place of any kind variable
 line = "==============="
