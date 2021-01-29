@@ -24,13 +24,13 @@ def welcome(greeting, line, warning):
 
 def choice():
 
-    choice_types = input('What do you want to search from a word?\n1. Synonyms\n2. Antonyms\n3. Exit\njust choose the number: ')
+    choice_types = input('What do you want to search from a word?\n1. Synonyms\n2. Antonyms\n(press (ENTER) for Exit)\n\njust choose the number: ')
     print()
     if choice_types == '1' or choice_types == "Synonyms":
         synonym()
     elif choice_types == '2' or choice_types == "Antonyms":
         antonym()
-    elif choice_types == '3' or choice_types == "Exit":
+    elif choice_types == '' or choice_types == "Exit":
         exit_out()
     else:
         print('Invalid Input')
