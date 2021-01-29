@@ -1,4 +1,10 @@
-# Komentar Berbahasa Indonesia !
+# Komentar Berbahasa Campuran (English and Indonesian)!
+
+# import only system and name from os
+from os import system, name
+
+# import sleep to show output for some time period
+from time import sleep 
 
 # ini dictionary untuk menyimpan data akun user
 user_data = {}
@@ -7,23 +13,33 @@ user_data = {}
 secret_password = "kopinya enak banget"
 
 def welcome():
-    choice = input("\nWelcome\n1. Sign Up\n2. Login\n3. All Data\n(press enter for exit)\n--> ")
-    print()
-    if choice == "1":
+    # for clear entire screen before
+    clear(0.5)
+
+    choice = input("Welcome\n1. Sign Up\n2. Login\n3. All Data\n(press enter for exit)\n--> ")
+
+    if choice == "1" or choice == "Sign Up":
         # masuk ke fungsi sign_up
         sign_up()
-    elif choice == "2":
+    elif choice == "2" or choice == "Login":
         # masuk ke fungsi login
         login()
-    elif choice == "3":
+    elif choice == "3" or choice == "All Data":
         # masuk ke fungsi all_data
         all_data()
     else:
-        pass
+        print("\nLoading . . . ")
+
+        # for clear entire screen before
+        clear(2)
+
         # keluar dari program, jika user menekan enter :)
 
     
 def sign_up():
+    # for clear entire screen before
+    clear(0.5)
+
     # sign up untuk akun baru
     new_username = input("Input new username: ")
     new_password = input("Input new password: ")
@@ -43,11 +59,18 @@ def sign_up():
             user_data[new_username] = new_password
             print("\n*Account added")
 
+    # for clear entire screen
+    clear(2)
+
     # kembali ke fungsi welcome
     welcome()
 
 
+# Fungsi ini ga terlalu penting sih hehe
 def login():
+    # for clear entire screen before
+    clear(0.5)
+
     # meminta input untuk login user
     username = input("Enter your username: ")
     password = input("Enter your password: ")
@@ -61,23 +84,51 @@ def login():
     else:
         print("\n*This account is doesn't exist")
 
+    # for clear entire screen
+    clear(2)
+
     # kembali ke fungsi welcome
     welcome()
 
 
 def all_data():
+    # for clear entire screen before
+    clear(0.5)
+
     # di sini, kita bisa akses semua data yang telah tersimpan di dalam dictionary "user_data"
     secret_input = input("Enter the secret password: ")
-    if secret_input == secret_password:
-        print("\nUser Data:")
-        for username, password in user_data.items():
-            print(f"- {username} == {password}")
+
+    if user_data == {}:
+        # new feature
+        print("\n*Empty")
     else:
-        print("\n*Invalid password")
+
+        if secret_input == secret_password:
+            print("\nUser Data:")
+            for username, password in user_data.items():
+                print(f"- {username} >>> {password}")
+        else:
+            print("\n*Invalid password")
+
+    if input("\npress ENTER if you done") == "":
+        # for clear entire screen
+        clear(2)
 
     # kembali ke fungsi welcome
     welcome()
 
+def clear(sleep_time):
+
+    # sleep time
+    sleep(sleep_time)
+
+    # this is for windows
+    if name == "nt":
+        _ = system('cls')
+
+    # this is for mac and linux (os.name called "posix")
+    else:
+        _ = system('clear')
 
 # start program
 welcome()
