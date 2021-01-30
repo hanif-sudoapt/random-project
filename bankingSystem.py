@@ -67,13 +67,13 @@ def welcome():
     loading_animation(5, 0.3)
 
     # ask the user for an input
-    choice = input("Welcome to Banking System\n\nPick what do you want to do\n\n(if you have made an account, then just login again please. Thank You)\n\n1. Sign Up\n2. Login\n\n*press (Enter) for exit from this program\n\n--> ")
+    choice = input("\t\t\t\t\t\tWelcome to E-Banking System\n\n1. Sign Up\n2. Login\n\n(if you have made an account, then just login again please. Thank You)\n\n*press (Enter) for exit from this program\n\n--> ")
     
     # conditional
-    if choice == "1" or choice == "Sign Up":
+    if choice == "1" or choice.lower() == "sign up":
         # goes to the sign_up function
         sign_up()
-    elif choice == "2" or choice == "Login":
+    elif choice == "2" or choice.lower() == "login":
         # goes to the login function
         login()
     elif choice == "":
@@ -117,9 +117,9 @@ def sign_up():
     try:
 
         # giving an input to the user
-        customer_name = input("Enter Your Full Name --> ")
-        customer_pin = int(input("Enter Your Bank Pin ( must be a 6 digit number, and the first digit can't be a 0 ) --> "))
-        customer_balance = int(input("Enter Your First Balance in your Bank Account --> $ "))
+        customer_name = input("\ Enter Your Full Name --> ")
+        customer_pin = int(input("/ Enter Your Bank Pin --> "))
+        customer_balance = int(input("\ Enter Your First Balance in your Bank Account --> $ "))
 
         # make a sleep time for a sec
         sleep(1)
@@ -129,8 +129,8 @@ def sign_up():
             # error message
             print("\nPin must be a 6 digit number, and the first digit can't be a 0 (zero)")
 
-            # make a sleep time for a sec
-            sleep(3)
+            # a confirmation from the user, to repeating the input    
+            input("\n*press (Enter) for repeating the input")
 
             # back to the beginning
             sign_up()
@@ -146,8 +146,6 @@ def sign_up():
             
             # got the random account number
             customer_number = int("".join(tmp_customer_number))
-
-            # transfer all the customer data to the dictionary that have we made
 
             # this is for transfering the pin number
             acccount_pin[customer_name] = customer_pin
@@ -165,7 +163,7 @@ def sign_up():
             loading_animation(5, 0.2)
 
             # print a confirmation that user account data has been stored
-            print(f"Account\n\n- Name: {customer_name}\n- Account Number: {customer_number}\n- Main Balance: ${customer_balance}\n\nHas Been Stored . . .")
+            print(f"Account\n\n- Name: {customer_name}\n- Account Number: {customer_number}\n- Main Balance: ${customer_balance}\n\n*Data has been stored . . .")
 
             # a confirmation from the user, to continue to the next step
             input("\n*press (Enter) for continue")
@@ -179,11 +177,8 @@ def sign_up():
         # error message
         print("\nYour pin and balance must be an Integer and without a space !")
 
-        # information for the user
-        print("\nPlease wait a few second")
-
-        # make a sleep time for a sec
-        sleep(5)
+        # a confirmation from the user, to repeating the input
+        input("\n*press (Enter) for repeating the input")
         
         # back to the beginning
         sign_up()
