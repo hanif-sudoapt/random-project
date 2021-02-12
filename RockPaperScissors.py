@@ -1,28 +1,104 @@
 import random
+from os import system, name
+from time import sleep
 
-# the player, can input their own name 
-name = input("Enter your name: ")
+
+# what this function do, is clearing the entire screen before, while the script is still running
+def clear():
+
+    # condition and logic
+
+    # this is for Windows
+    if name == "nt":
+        # clear the screen
+        _ = system("cls")
+
+    # this is for Mac or Linux
+    elif name == "posix":
+        # clear the screen
+        _ = system("clear")        
+
+
+# printing a loading message
+def loading(times):
+
+    # clearing the screen before 
+    clear()
+
+    # print a loading text
+    print("loading " + ". " * times)
+
+
+
+# a cool loading animation for a basic transition
+def loading_animation(count, sleep_time):
+
+    # iteration variable
+    i = 1
+
+    # looping for make an animation loading
+    while i <= count:
+        # called the loading function
+        loading(i)
+
+        # make a sleep time for a sec
+        sleep(sleep_time)
+
+        # increment i by 1
+        i += 1
+    
+    # clear the screen before 
+    clear()
+
+
+
+# loading animation and clear the screen before
+loading_animation(5, 0.3)
+
+# the player, can input their own user_name 
+user_name = input("Enter your name: ")
+
+# loading animation and clear the screen before
+loading_animation(5, 0.3)
 
 # all bunch of variables is stored in here :)
-game_list = ['Rock', 'Paper', 'Scissors'] # this is the answer choice
-computer_score = 0 # this is the variable of computer score
-player_score = 0 # this is the variable of player score
-player_won = f"\n{name} Won!" # this is the string that we want to print when the player won from the computer
-computer_won = "\nComputer Won!" # this is the string that we want to print when the computer won from the player
+
+# this is the answer choice
+game_list = ['Rock', 'Paper', 'Scissors'] 
+
+ # this is the computer_score variable
+computer_score = 0
+
+# this is the player_score variable
+player_score = 0 
+
+# this is a string that we want to print when the player won from the computer
+player_won = f"\n{user_name} Won!"
+
+# this is a string that we want to print when the computer won from the player 
+computer_won = "\nComputer Won!" 
+
+# A string that we want to print if the computer and the player is tied up
 tie = "\nTie Game !!"
 
-main_score = f"Main Score: Computer = {computer_score}, {name} = {player_score}" # this is a variable for printing the main score
-main_score_count = len(main_score) # this is for counting the length of the main_score variable
 
-# just a line, for separating line by line (make the output looks more cleaner)  
-upper_line = "=" * main_score_count # so, I times the line with the main score length, because it makes the line looks more efficient
-down_line = "-" * main_score_count 
 
-# the loop
 run = True
-
+# start the loop
 while run:
+    
+    # this is a variable for printing the main score
+    main_score = f"Main Score: Computer = {computer_score}, {user_name} = {player_score}" 
 
+    # this is for counting the length of the main_score variable
+    main_score_line = len(main_score) 
+
+    # just a line, for separating line by line (make the output looks more cleaner)  
+    
+    # so, I times the line with the main score length, because it makes the line looks more efficient and clean :)
+    upper_line = "=" * main_score_line 
+    down_line = "-" * main_score_line 
+    
     print(f"{upper_line}\n{main_score}\n{down_line}")
     computer_choice = random.choice(game_list)
     player_choice = input("Rock, Paper, Scissors, or Quit: ").capitalize() 
@@ -57,12 +133,27 @@ while run:
             computer_score += 1
 
     elif player_choice == "Quit":
-        print("\nBye .. Bye ..\n")
+
+       # loading animation and clear the screen before
+        loading_animation(5, 0.3)
+
+        print("Bye .. Bye ..\n")
+
+        # make a sleep time
+        sleep(2)
+
+        # loading animation and clear the screen before
+        loading_animation(5, 0.3)
         break
 
     else:
         print("\nInvalid Input !\n")
         player_choice = "(Input Error)"
     
-    print(f"- {name}: {player_choice}")
+    print(f"- {user_name}: {player_choice}")
     print(f"- Computer: {computer_choice}\n")
+
+    input("\npress ENTER for continue")
+
+    # loading animation and clear the screen before
+    loading_animation(5, 0.3)
