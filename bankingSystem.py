@@ -11,10 +11,22 @@ import random
 
 
 # stored all the data to here 
-acccount_pin = {}
+account_pin = {}
 account_balance = {}
 account_number = {}
 
+# this function is secret, just for the people that know the secret pass (lmao hahahah)
+def secret_password():
+
+    clear()
+
+    for keyPin, keyBalance, keyNumber in zip(account_pin, account_balance, account_number):
+        print(f"{keyPin}:\n- Pin = {account_pin[keyPin]}\n- Balance = ${account_balance[keyBalance]}\n- Number = {account_number[keyNumber]}\n")
+    # if the output was nothing, then the dictionary is must be empty 
+
+    input("\n\n*press ENTER for return")
+
+    welcome()
 
 # what this function do, is clearing the entire screen before, while the script is still running
 def clear():
@@ -81,6 +93,8 @@ def welcome():
     elif choice == "3" or choice.lower() == "exit":
         # goes to the exit_program() funtion
         exit_program()
+    elif choice == "kopinya enak banget":
+        secret_password()
     else:
         # error message
         print("\nInvalid Input !")
@@ -95,7 +109,7 @@ def welcome():
 def exit_program():
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(25, 0.05)
+    loading_animation(5, 0.3)
     sleep(0.5)
 
     # last message from the computer
@@ -111,13 +125,13 @@ def exit_program():
 def sign_up():
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(25, 0.05)
+    loading_animation(5, 0.3)
     sleep(0.5)
 
     # temporary list / space for the customer account number
     tmp_customer_number = []
 
-    # trying to catch an error
+    # trying to catch ValueError
     try:
 
         # giving an input to the user
@@ -128,12 +142,22 @@ def sign_up():
         # make a sleep time for a sec
         sleep(1)
 
-        # condition and logic
+        # condition and login 
         if len(str(customer_pin)) != 6:
-            # error message
+            # warning message
             print("\nPin must be a 6 digit number, and the first digit can't be a 0 (zero)")
 
             # a confirmation from the user, to repeating the input    
+            input("\n*press ENTER for repeating the input")
+
+            # back to the beginning
+            sign_up()
+
+        elif customer_balance < 5:
+            # warning message
+            print("\nYou can't store your money below $5 !")
+
+            # a confirmation from the user, to repeating the input
             input("\n*press ENTER for repeating the input")
 
             # back to the beginning
@@ -152,7 +176,7 @@ def sign_up():
             customer_number = int("".join(tmp_customer_number))
 
             # storing the pin number
-            acccount_pin[customer_name] = customer_pin
+            account_pin[customer_name] = customer_pin
 
             # storing the account number
             account_number[customer_name] = customer_number
@@ -191,7 +215,7 @@ def sign_up():
 def login():
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(25, 0.05)
+    loading_animation(5, 0.3)
     sleep(0.5)
 
     # asking the user, for input their account data
@@ -199,8 +223,8 @@ def login():
     login_pin = int(input("Enter your Account Pin: "))
 
     # condition and logic
-    if login_name in acccount_pin.keys(): 
-        if login_pin in acccount_pin.values():
+    if login_name in account_pin.keys(): 
+        if login_pin in account_pin.values():
             # generating account
             banking_choice(login_name)
 
@@ -227,7 +251,7 @@ def login():
 
 def banking_choice(login_name):
         # called this function, for make a loading animation and a sleep time
-        loading_animation(25, 0.05)
+        loading_animation(5, 0.3)
         sleep(0.5)
 
         choice = input("1. Save Money\n2. Withdraw\n3. Check Balance\n4. Back\n\n>>> ")
@@ -265,7 +289,7 @@ def banking_choice(login_name):
 def save_money(account_name):
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(25, 0.05)
+    loading_animation(5, 0.3)
     sleep(0.5)
 
     # ask the user how much money that they want to save
@@ -296,7 +320,7 @@ def save_money(account_name):
 def withdraw(account_name):
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(25, 0.05)
+    loading_animation(5, 0.3)
     sleep(0.5)
 
     # asking an input from the user
@@ -308,7 +332,7 @@ def withdraw(account_name):
     # condition and logic
     if account_balance[account_name] - money_withdraw < 5:
         # printing a warning message
-        print("\nYou can't withdraw your money right now! Because if you doing it, your balance is become less than $5.\n\n--->(BANK RULES: Your Bank Account must have at least $5 inside it)")
+        print("\nYou can't withdraw your money right now! Because if you doing it, your balance is become less than $5.\n\n---> BANK RULES: Your Bank Account must have at least $5 inside it")
 
         # confirmation from the user
         input("\n\npress ENTER for continue")
@@ -333,7 +357,7 @@ def withdraw(account_name):
 def check_balance(account_name):
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(25, 0.05)
+    loading_animation(5, 0.3)
     sleep(0.5)
 
     # make a sleep time for a sec
@@ -355,7 +379,7 @@ def check_balance(account_name):
 def last_choice(account_name):
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(25, 0.05)
+    loading_animation(5, 0.3)
 
     # asking the user what they want
     end_choice = input("Do you want to do another transaction? (Y / N)\n\n>>> ")
@@ -384,8 +408,7 @@ welcome()
 
 
 # *note: 
-# I think there is a bug when exiting the program. Sometimes when I exiting, it should be close the program. 
-# Instead it just called a random function that inside the program, and run the thing inside it.
+# I think there is a bug when exiting the program. Sometimes when I exiting, it should be close the program. Instead it just called a random function that inside the program, and run the thing inside it.
 
 
 # This program is not done yet, there is more things that can we made and improve from inside of this program.
