@@ -4,38 +4,43 @@
 # import the PyDictionary module
 from PyDictionary import PyDictionary
 
-# import only system and name from os
 from os import system, name
-
-# import sleep to show output for some time period
 from time import sleep 
+from clearAndLoading import Loading
 
 # make the instance for PyDictionary
 dictionary = PyDictionary()
+# instance for the clearing stuff
+clearLoad = Loading(0, 5, 0.2)
 
 
-def welcome(greeting, line, warning):
+def welcome(greeting, line, warning, lineLong):
     # for clear the entire screen before
-    clear(0.5)
+    clearLoad.loadingAnimation()
 
     # I have make this function a lot cleaner, than before
     print(line + greeting + line + "\n" + warning + "\n")
 
+    input("\n" + " " * round(1/3 * lineLong) + "press ENTER for continue")
+
 
 def choice():
 
-    choice_types = input('What do you want to search from a word?\n1. Synonyms\n2. Antonyms\n(press (ENTER) for Exit)\n\njust choose the number: ')
+    # for clear the entire screen before
+    clearLoad.loadingAnimation()
+
+    choice_types = input('What do you want to search from a word?\n1. Synonyms\n2. Antonyms\n\n(press ENTER for Exit)\n\njust choose the number: ')
     print()
-    if choice_types == '1' or choice_types == "Synonyms":
+    if choice_types == '1' or choice_types.capitalize() == "Synonyms":
         synonym()
-    elif choice_types == '2' or choice_types == "Antonyms":
+    elif choice_types == '2' or choice_types.capitalize() == "Antonyms":
         antonym()
     elif choice_types == '' or choice_types == "Exit":
         exit_out()
     else:
         print('Invalid Input')
         # for clear the entire screen before
-        clear(1)
+        clearLoad.loadingAnimation()
 
         # back to the choice function if user type in the wrong input
         choice()
@@ -43,7 +48,7 @@ def choice():
 
 def synonym():
     # for clear the entire screen before
-    clear(1)
+    clearLoad.loadingAnimation()
 
     word = input('Input the word that you want to search its synonym: ')
     result = dictionary.synonym(word)
@@ -55,7 +60,7 @@ def synonym():
 
     if input("\npress ENTER to continue") == "":
         # for clear the entire screen before
-        clear(1)
+        clearLoad.loadingAnimation()
 
     choice()
     # back to the choice function
@@ -63,7 +68,7 @@ def synonym():
 
 def antonym():
     # for clear the entire screen before
-    clear(1)
+    clearLoad.loadingAnimation()
 
     word = input('Input the word that you want to search its antonym: ')
     result = dictionary.antonym(word)
@@ -74,40 +79,27 @@ def antonym():
 
     if input("\npress ENTER to continue") == "":
         # for clear the entire screen before
-        clear(1)
+        clearLoad.loadingAnimation()
 
     choice()
     # back to the choice function
 
 
 def exit_out():
+    
+    clearLoad.loadingAnimation()
+
     print("Thanks for using this program :)\n")
 
+    sleep(3)
     # for clear the entire screen before
-    clear(3)
+    clearLoad.clear()
 
     # program get close
 
 
-# new feature
-def clear(sleep_time):
-    # so the sleep_time argument, is for adjusting the long of sleep time do
-
-    # sleep time
-    sleep(sleep_time)
-
-    # this is for windows
-    if name == "nt":
-        _ = system('cls')
-
-    # this is for mac and linux (os.name called "posix")
-    else:
-        _ = system('clear')
-
-
-
-# for clear the entire screen before
-clear(1)
+# loading intro
+clearLoad.loadingAnimation()
 
 # the user can type in their name
 name = input('Type in your name: ')
@@ -115,12 +107,16 @@ name = input('Type in your name: ')
 # the greeting message, I turn it into a variabel because I want to find the length of the greeting message
 greeting = f"\nWelcome {name}, this program was made for people who want to search an antonym or synonym of a word\n"
 
-# warning message
-warning = '*warning, you just can input one word! not more'
+# total length of the greeting string
+lineLong = len(greeting) - 2
 
 # this is the cool part. I make the line can be adjust automaticly, it means the line will print as many as the length of the greeting message
-line = '=' * (len(greeting) - 2)
+line = '=' * lineLong
+indent = " " * round((1/4 * lineLong))
+
+# warning message
+warning = indent + '*warning, you just can input one word! not more'
 
 # called the function
-welcome(greeting, line, warning)
+welcome(greeting, line, warning, lineLong)
 choice()
