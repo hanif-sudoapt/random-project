@@ -72,24 +72,35 @@ class Typing:
 
     # init method
     def __init__(self, word, blinkingTotal, sleepTime, blinkingCursorSleepTime):
-        self.word = word
-        self.blinkingTotal = blinkingTotal
-        self.sleepTime = sleepTime
-        self.blinkingCursorSleepTime = blinkingCursorSleepTime
+        self.word = word # --> the word that we want the computer to retype it
+        self.blinkingTotal = blinkingTotal # --> use for how many times the cursor that we want to blink, when the program finish retyping the word
+        self.sleepTime = sleepTime # --> a sleep/interval time, between when the computer retype the word
+        self.blinkingCursorSleepTime = blinkingCursorSleepTime # --> a sleep/interval time, between when the cursor is blinking
 
 
     def typeAnimation(self):
-        result = ""
         
+        result = ""
+        # you can custom the cursor, whatever you like
+        cursor = " /"
+        cursor2 = " \\"
+
         # the typing animation loop
         for i in self.word:
             result += i
-            print(result + "_")
-            sleep(self.sleepTime)
-            self.loadClear.clear()
+            # if the length of the result is even, then the cursor animation will be frontslash
+            if len(result) % 2 == 0:
+                print(result + cursor)
+                sleep(self.sleepTime)
+                self.loadClear.clear()
+            # if the length of the result is odd, then the cursor animation will be backslash
+            else:
+                print(result + cursor2)
+                sleep(self.sleepTime)
+                self.loadClear.clear()
 
-        blink1 = result + "_"
-        blink2 = result + " "
+        blink1 = result + cursor
+        blink2 = result + cursor2
 
         # blinking cursore 
         j = 1
@@ -100,8 +111,32 @@ class Typing:
                 self.loadClear.clear()
                 j += 1
 
-            elif j % 2 != 0:
+            else:
                 print(blink2)
                 sleep(self.blinkingCursorSleepTime)
                 self.loadClear.clear()
                 j += 1
+
+        resultIndex = -1
+        resultLength = len(result) * -1
+        # clearing the word from the terminal
+        while resultIndex > resultLength:
+
+            # temporary place for the result
+            tmpResult = result[resultLength:resultIndex]
+
+            # the same technique that we use before, use the same concept
+            if resultIndex % 2 == 0:
+                print(tmpResult + cursor)
+                sleep(self.sleepTime)
+                self.loadClear.clear()
+                resultIndex += -1   
+
+            elif resultIndex % 2 != 0:
+                print(tmpResult + cursor2)
+                sleep(self.sleepTime)
+                self.loadClear.clear()
+                resultIndex += -1
+
+        # sleep time in the end
+        sleep(self.blinkingCursorSleepTime)
