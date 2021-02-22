@@ -5,12 +5,15 @@ from time import sleep
 # and for me it's like a cool animation that can be used in the terminal :)
 
 
+
 class Loading:
+
     # the core of this class is in here actually 
     def __init__(self, firstCount, manyCount, sleep_time):
         self.firstCount = firstCount
         self.manyCount = manyCount
         self.sleep_time = sleep_time
+
 
     # I'm using staticmethod, because this function didn't use any argumen / parameters
     @staticmethod
@@ -23,6 +26,7 @@ class Loading:
         else:
             _ = system('clear')
 
+
     def loadingText(self):
 
         # clearing the terminal screen
@@ -30,6 +34,7 @@ class Loading:
 
         # print text loadingnya, dengan jumlah titik yang ditentukan
         print("loading" + " . " * self.firstCount)
+
 
     def loadingAnimation(self):
 
@@ -55,3 +60,48 @@ class Loading:
 
         # clearing the terminal screen
         Loading(self.firstCount, self.manyCount, self.sleep_time).clear()
+
+
+
+# this object can retype a word in a terminal
+class Typing:
+
+    # instance, for calling the clear function from the Loading class
+    loadClear = Loading(0, 0, 0)
+
+
+    # init method
+    def __init__(self, word, blinkingTotal, sleepTime, blinkingCursorSleepTime):
+        self.word = word
+        self.blinkingTotal = blinkingTotal
+        self.sleepTime = sleepTime
+        self.blinkingCursorSleepTime = blinkingCursorSleepTime
+
+
+    def typeAnimation(self):
+        result = ""
+        
+        # the typing animation loop
+        for i in self.word:
+            result += i
+            print(result + "_")
+            sleep(self.sleepTime)
+            self.loadClear.clear()
+
+        blink1 = result + "_"
+        blink2 = result + " "
+
+        # blinking cursore 
+        j = 1
+        while j <= self.blinkingTotal:
+            if j % 2 == 0:
+                print(blink1)
+                sleep(self.blinkingCursorSleepTime)
+                self.loadClear.clear()
+                j += 1
+
+            elif j % 2 != 0:
+                print(blink2)
+                sleep(self.blinkingCursorSleepTime)
+                self.loadClear.clear()
+                j += 1
