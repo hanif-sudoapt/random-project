@@ -1,90 +1,44 @@
 import random
-from os import system, name
 from time import sleep
+from clearAndLoading import Loading, Typing
 
-
-# what this function do, is clearing the entire screen before, while the script is still running
-def clear():
-
-    # condition and logic
-
-    # this is for Windows
-    if name == "nt":
-        # clear the screen
-        _ = system("cls")
-
-    # this is for Mac or Linux
-    elif name == "posix":
-        # clear the screen
-        _ = system("clear")        
-
-
-# printing a loading message
-def loading(times):
-
-    # clearing the screen before 
-    clear()
-
-    # print a loading text
-    print("loading " + ". " * times)
-
-
-
-# a cool loading animation for a basic transition
-def loading_animation(count, sleep_time):
-
-    # iteration variable
-    i = 1
-
-    # looping for make an animation loading
-    while i <= count:
-        # called the loading function
-        loading(i)
-
-        # make a sleep time for a sec
-        sleep(sleep_time)
-
-        # increment i by 1
-        i += 1
-    
-    # clear the screen before 
-    clear()
-
+# loading object instance
+clearLoad = Loading(1, 3, 0.3)
 
 
 # loading animation and clear the screen before
-loading_animation(5, 0.3)
+clearLoad.loadingAnimation()
 
 # the player, can input their own user_name 
 user_name = input("Enter your name: ")
 
 # loading animation and clear the screen before
-loading_animation(5, 0.3)
+clearLoad.loadingAnimation()
+
 
 # all bunch of variables is stored in here :)
-
 # this is the answer choice
 game_list = ['Rock', 'Paper', 'Scissors'] 
 
- # this is the computer_score variable
+# the computer_score variable
 computer_score = 0
 
-# this is the player_score variable
+# the player_score variable
 player_score = 0 
 
-# this is a string that we want to print when the player won from the computer
-player_won = f"\n{user_name} Won!"
+# a string that we want to print, when the player won from the computer
+player_won = f"\n{user_name} Won!\n"
 
-# this is a string that we want to print when the computer won from the player 
-computer_won = "\nComputer Won!" 
+# a string that we want to print, when the computer won from the player 
+computer_won = "\nComputer Won!\n" 
 
-# A string that we want to print if the computer and the player is tied up
-tie = "\nTie Game !!"
+# a string that we want to print, if the computer and the player is tied up
+tie = "\nTie Game !!\n"
 
 
-
-run = True
 # start the loop
+run = True
+
 while run:
     
     # this is a variable for printing the main score
@@ -135,15 +89,10 @@ while run:
     elif player_choice == "Quit":
 
        # loading animation and clear the screen before
-        loading_animation(5, 0.3)
+        clearLoad.loadingAnimation()
 
-        print("Bye .. Bye ..\n")
-
-        # make a sleep time
-        sleep(2)
-
-        # loading animation and clear the screen before
-        loading_animation(5, 0.3)
+        retype = Typing("Bye .. Bye ..", 3, 0.2, 0.3)
+        retype.typeAnimation()
         break
 
     else:
@@ -156,4 +105,5 @@ while run:
     input("\npress ENTER for continue")
 
     # loading animation and clear the screen before
-    loading_animation(5, 0.3)
+    clearLoad.loadingAnimation()
+
