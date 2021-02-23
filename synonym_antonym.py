@@ -4,14 +4,15 @@
 # import the PyDictionary module
 from PyDictionary import PyDictionary
 
-from os import system, name
 from time import sleep 
-from clearAndLoading import Loading
+from clearAndLoading import Loading, Typing
+
 
 # make the instance for PyDictionary
 dictionary = PyDictionary()
+
 # instance for the clearing stuff
-clearLoad = Loading(0, 5, 0.2)
+clearLoad = Loading(0, 3, 0.3)
 
 
 def welcome(greeting, line, warning, lineLong):
@@ -58,9 +59,8 @@ def synonym():
     for answer in result:
         print('-', answer)
 
-    if input("\npress ENTER to continue") == "":
-        # for clear the entire screen before
-        clearLoad.loadingAnimation()
+    # confirmation from the user
+    input("\npress ENTER to continue")
 
     choice()
     # back to the choice function
@@ -77,9 +77,8 @@ def antonym():
     for answer in result:
         print('-', answer)
 
-    if input("\npress ENTER to continue") == "":
-        # for clear the entire screen before
-        clearLoad.loadingAnimation()
+    # confirmation from the user
+    input("\npress ENTER to continue")
 
     choice()
     # back to the choice function
@@ -89,9 +88,9 @@ def exit_out():
     
     clearLoad.loadingAnimation()
 
-    print("Thanks for using this program :)\n")
+    retype = Typing("Thanks for using this program :)", 3, 0.1, 0.3)
+    retype.typeAnimation()
 
-    sleep(3)
     # for clear the entire screen before
     clearLoad.clear()
 
