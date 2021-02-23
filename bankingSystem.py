@@ -1,6 +1,8 @@
 from os import system, name
+import sys
 from time import sleep
 import random
+from clearAndLoading import Loading, Typing
 
 # important function that we have to made:
 
@@ -9,6 +11,7 @@ import random
 # - login() --> done
 # - exit_program() ---> done
 
+clearLoad = Loading(0, 3, 0.3)
 
 # stored all the data to here 
 account_pin = {}
@@ -18,7 +21,7 @@ account_number = {}
 # this function is secret, just for the people that know the secret pass (lmao hahahah)
 def secret_password():
 
-    clear()
+    clearLoad.clear()
 
     for keyPin, keyBalance, keyNumber in zip(account_pin, account_balance, account_number):
         print(f"{keyPin}:\n- Pin = {account_pin[keyPin]}\n- Balance = ${account_balance[keyBalance]}\n- Number = {account_number[keyNumber]}\n")
@@ -28,57 +31,11 @@ def secret_password():
 
     welcome()
 
-# what this function do, is clearing the entire screen before, while the script is still running
-def clear():
-
-# condition and logic
-
-    # this is for Windows
-    if name == "nt":
-        # clear the screen
-        _ = system("cls")
-
-    # this is for Mac or Linux
-    elif name == "posix":
-        # clear the screen
-        _ = system("clear")        
-
-
-# printing a loading message
-def loading(times):
-
-    # clearing the screen before 
-    clear()
-
-    # print a loading text
-    print("loading " + ". " * times)
-
-
-# a cool loading animation for a basic transition
-def loading_animation(count, sleep_time):
-
-    # iteration variable
-    i = 1
-
-    # looping for make an animation loading
-    while i <= count:
-        # called the loading function
-        loading(i)
-
-        # make a sleep time for a sec
-        sleep(sleep_time)
-
-        # increment i by 1
-        i += 1
-    
-    # clear the screen before 
-    clear()
-
 
 def welcome():
 
     # cool transition animation
-    loading_animation(5, 0.3)
+    clearLoad.loadingAnimation()
 
     # ask the user for an input
     choice = input("\t\t\t\t\t\tWelcome to E-Banking System\n\n1. Sign Up\n2. Login\n3. Exit\n\n(if you have made an account, then just login again please. Thank You)\n\n>>> ")
@@ -109,23 +66,22 @@ def welcome():
 def exit_program():
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(5, 0.3)
+    clearLoad.loadingAnimation()
     sleep(0.5)
 
     # last message from the computer
-    print("Thanks For Coming :)")
-    
-    # make a sleep time for a sec
-    sleep(1.5)
+    message = "Thanks For Coming :) "
+    retype = Typing(message, 5, 0.2, 0.3)
+    retype.typeAnimation()
 
-    # clear the entire screen before
-    clear()
+    # I think the exit bug is fixed, using the sys.exit() and this program is gonna get stopped for running 
+    sys.exit()
 
 
 def sign_up():
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(5, 0.3)
+    clearLoad.loadingAnimation()
     sleep(0.5)
 
     # temporary list / space for the customer account number
@@ -188,7 +144,7 @@ def sign_up():
             sleep(1)
 
             # make a loading animation
-            loading_animation(5, 0.2)
+            clearLoad.loadingAnimation()
 
             # print a confirmation that user account data has been stored
             print(f"Account\n\n- Name: {customer_name}\n- Account Number: {customer_number}\n- Main Balance: ${customer_balance}\n\n*Data has been stored . . .")
@@ -215,7 +171,7 @@ def sign_up():
 def login():
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(5, 0.3)
+    clearLoad.loadingAnimation()
     sleep(0.5)
 
     # asking the user, for input their account data
@@ -251,7 +207,7 @@ def login():
 
 def banking_choice(login_name):
         # called this function, for make a loading animation and a sleep time
-        loading_animation(5, 0.3)
+        clearLoad.loadingAnimation()
         sleep(0.5)
 
         choice = input("1. Save Money\n2. Withdraw\n3. Check Balance\n4. Back\n\n>>> ")
@@ -289,7 +245,7 @@ def banking_choice(login_name):
 def save_money(account_name):
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(5, 0.3)
+    clearLoad.loadingAnimation()
     sleep(0.5)
 
     # ask the user how much money that they want to save
@@ -320,7 +276,7 @@ def save_money(account_name):
 def withdraw(account_name):
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(5, 0.3)
+    clearLoad.loadingAnimation()
     sleep(0.5)
 
     # asking an input from the user
@@ -357,7 +313,7 @@ def withdraw(account_name):
 def check_balance(account_name):
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(5, 0.3)
+    clearLoad.loadingAnimation()
     sleep(0.5)
 
     # make a sleep time for a sec
@@ -379,7 +335,7 @@ def check_balance(account_name):
 def last_choice(account_name):
 
     # called this function, for make a loading animation and a sleep time
-    loading_animation(5, 0.3)
+    clearLoad.loadingAnimation()
 
     # asking the user what they want
     end_choice = input("Do you want to do another transaction? (Y / N)\n\n>>> ")
@@ -403,12 +359,11 @@ def last_choice(account_name):
         last_choice(account_name)
 
 
-# called this function. For starting the program
+# start the program
 welcome()
 
 
-# *note: 
-# I think there is a bug when exiting the program. Sometimes when I exiting, it should be close the program. Instead it just called a random function that inside the program, and run the thing inside it.
-
 
 # This program is not done yet, there is more things that can we made and improve from inside of this program.
+
+# Lastly: I think the exit bug has fixed LMAO ;)
