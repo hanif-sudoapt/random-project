@@ -359,9 +359,10 @@ def last_choice(account_name):
         last_choice(account_name)
 
 
-# start the program
-welcome()
 
+if __name__ == "__main__":
+    # start the program
+    welcome()
 
 
 # This program is not done yet, there is more things that can we made and improve from inside of this program.
