@@ -3,14 +3,9 @@ from time import sleep
 import random
 import sys
 
-# important function that we have to made:
-# - welcome() ---> done
-# - sign_up() --> done
-# - login() --> done
-# - exit_program() ---> done
 
-
-# stored the customer data
+# stored all the data customer in here
+# I use dictionary for handle the customer data
 account_pin = {}
 account_balance = {}
 account_number = {}
@@ -19,344 +14,347 @@ account_number = {}
 clearLoad = Loading(0, 3, 0.3)
 
 
-# this function is secret, just for the people that know the secret pass (lmao hahahah)
-def secret_password():
-    clearLoad.clear()
-
-    for keyPin, keyBalance, keyNumber in zip(account_pin, account_balance, account_number):
-        print(f"{keyPin}:\n- Pin = {account_pin[keyPin]}\n- Balance = ${account_balance[keyBalance]}\n- Number = {account_number[keyNumber]}\n")
-    # if the output was nothing, then the dictionary is empty (no data has been input)
-
-    input("\n\n*press ENTER for return")
-
-    welcome()
+# FUNCTION PART
 
 
 def welcome():
-    # cool transition animation
     clearLoad.loadingAnimation()
 
-    # ask the user for an input
-    choice = input("\t\t\tWelcome to E-Banking System\n\n(1) Sign Up\n(2) Login\n(3) Exit\n\n(if you have made an account, then just login again please. Thank You)\n\n>>> ")
+    message = """
+                        Welcome to E-Banking System
 
-    # condition and logic
+                                (1) Sign Up
+                                (2) Login
+                                (3) Exit
+    
+        (if you have made an account, then just login again please. Thank You)
+    
+    
+                                    >>> """
+    choice = input(message)
+
+    # condition
     if choice == "1" or choice.lower() == "sign up":
-        # goes to the sign_up() function
+        # goes to the sign_up function
         sign_up()
     elif choice == "2" or choice.lower() == "login":
-        # goes to the login() function
+        # goes to the login function
         login()
     elif choice == "3" or choice.lower() == "exit":
-        # goes to the exit_program() funtion
+        # goes to the exit_program function
         exit_program()
     elif choice == "kopinya enak banget":
         secret_password()
     else:
-        # invalid message that we want to print
-        print("\nInvalid Input !")
-
-        # make a sleep time for a sec
+        print("\n\n\t\t\t\tInvalid Input !")
+        # sleep time
         sleep(2)
 
-        # return to the beginning interface
+        # return to the welcome function
         welcome()
 
 
+def secret_password():
+    clearLoad.clear()
+
+    for keyPin, keyBalance, keyNumber in zip(account_pin, account_balance, account_number):
+        message = f"""
+                    {keyPin}:
+                    - Pin = {account_pin[keyPin]}
+                    - Balance = $ {account_balance[keyBalance]}
+                    - Number = {account_number[keyNumber]}"""
+        print(message)
+    # if the output was nothing, then the dictionary is empty (no data has been input)
+
+    input("\n\n\t\t\t *press ENTER for return")
+
+    welcome()
+
+
 def exit_program():
-    # called this function, for make a loading animation and a sleep time
     clearLoad.loadingAnimation()
     sleep(0.5)
 
-    # last message from the computer
-    message = "Thanks For Coming :) "
-    retype = Typing(message, 5, 0.1, 0.3)
+    message = """\n\n\n\n\n\n\n\n\n\t\t\t\tThanks For Coming :) """
+    retype = Typing(message, 5, 0.1, 0.3, False)
+    # retype animation
     retype.typeAnimation()
 
-    # I think the exit bug is fixed, using the sys.exit() and this program is gonna get stopped for running
+    # exit the program
     sys.exit()
 
 
 def sign_up():
-    # called this function, for make a loading animation and a sleep time
     clearLoad.loadingAnimation()
     sleep(0.5)
 
-    # temporary list / space for the customer account number
     tmp_customer_number = []
 
-    # trying to catch ValueError
     try:
-        # giving an input to the user
-        customer_name = input("\ Enter Your Full Name --> ")
-        customer_pin = int(input("/ Enter Your Bank Pin --> "))
-        customer_balance = int(
-            input("\ Store Your First Balance in your Bank Account --> $ "))
+        customer_name = input("\n\t\t\ Full Name >> ")
+        customer_pin = int(input("\t\t/ Bank Pin >> "))
+        customer_balance = int(input("\t\t\ First Balance in your Bank Account >> $ "))
 
-        # make a sleep time for a sec
         sleep(1)
 
-        # condition and login
         if len(str(customer_pin)) != 6:
-            # warning message
-            print(
-                "\nPin must be a 6 digit number, and the first digit can't be a 0 (zero)")
+            warnMessage = """
+            Pin must be a 6 digit number, and the first digit can't be a 0
 
-            # a confirmation from the user, to repeating the input
-            input("\n*press ENTER for repeating the input")
+                        *press ENTER for repeating the input
+            """
+            print(warnMessage)
+            input()
 
-            # back to the beginning
+            # back
             sign_up()
-
         elif customer_balance < 5:
-            # warning message
-            print("\nYou can't store your money below $5 !")
+            warnMessage = """
+                        You can't store your money below $5 !
 
-            # a confirmation from the user, to repeating the input
-            input("\n*press ENTER for repeating the input")
+                        *press ENTER for repeating the input
+            """
+            print(warnMessage)
+            input()
 
-            # back to the beginning
+            # back
             sign_up()
-
         else:
-            # iteration
             i = 10
-
-            # loop for getting the random account number
             while i > 0:
                 tmp_customer_number.append(str(random.randint(0, 9)))
                 i -= 1
-
-            # got the random account number
+            # got the customer numbers
             customer_number = int("".join(tmp_customer_number))
 
-            # storing the pin number
+            # store all the data to the dictionary
             account_pin[customer_name] = customer_pin
-
-            # storing the account number
             account_number[customer_name] = customer_number
-
-            # storing the first user account balance
             account_balance[customer_name] = customer_balance
 
-            # make a sleep time for a sec
             sleep(1)
-
-            # make a loading animation
             clearLoad.loadingAnimation()
 
-            # print a confirmation that user account data has been stored
-            print(
-                f"Account\n\n- Name: {customer_name}\n- Account Number: {customer_number}\n- Main Balance: ${customer_balance}\n\n*Data has been stored . . .")
+            printData = f"""
+                                   Account Data
 
-            # a confirmation from the user, to continue to the next step
-            input("\npress ENTER for continue")
+                        - Name --> {customer_name}
 
-            # back to the welcome() function
+                        - Account Number --> {customer_number}
+
+                        - Main Balance --> ${customer_balance}
+            
+                                    
+                              Data has been stored . . .
+
+                            *press ENTER for continue
+            """
+            print(printData)
+            input()
+
             welcome()
-
-    # catch ValueError, because user sometimes can be type in a non-integer input
     except ValueError:
-        # invalid message that we want to print
-        print("\nYour pin and balance must be an Integer and without a space !")
 
-        # a confirmation from the user, to repeating the input
-        input("\n*press ENTER for repeating the input")
+        warnMessage = """
+                    Your pin and balance must be an Integer and without a space !
 
-        # back to the beginning
+                            *press ENTER for repeating the input
+        """
+        print(warnMessage)
+        input()
+
+        # back
         sign_up()
 
 
 def login():
-    # called this function, for make a loading animation and a sleep time
     clearLoad.loadingAnimation()
     sleep(0.5)
 
-    # asking the user, for input their account data
-    login_name = input("Enter your Name: ")
-    login_pin = int(input("Enter your Account Pin: "))
+    login_name = input("\n\t\tEnter your Name: ")
+    login_pin = int(input("\n\t\tEnter your Account Pin: "))
 
-    # condition and logic
     if login_name in account_pin.keys():
         if login_pin in account_pin.values():
-            # generating account
+            # open the account
             banking_choice(login_name)
-
         else:
-            # printing a warning message
-            print("\n*Your Pin Doesn't Exist !")
+            message = """
 
-            # a confirmation from the user
-            input("\npress ENTER for repeat, or make a new Account ")
+                            Your Pin is Wrong !
 
-            # return to the welcome() function
+
+                *press ENTER for repeat, or make a new Account 
+            """
+            print(message)
+            input()
+
+            # back
             welcome()
-
     else:
-        # printing a warning message
-        print("\n*Your Name Doesn't Exist !")
+        message = """
+                    
+                           Your Name Doesn't Exist !
 
-        # a confirmation from the user
-        input("\npress ENTER for repeat, or make a new Account ")
 
-        # return to the welcome() function
+                *press ENTER for repeat, or make a new Account 
+        """
+        print(message)
+        input()
+        
+        # back
         welcome()
 
 
 def banking_choice(login_name):
-    # called this function, for make a loading animation and a sleep time
     clearLoad.loadingAnimation()
     sleep(0.5)
 
-    choice = input(
-        "1. Save Money\n2. Withdraw\n3. Check Balance\n4. Back\n\n>>> ")
+    message = f"""
+                                (1) Save Money
+                                (2) Withdraw
+                                (3) Check Balance
+                                (4) Back
+    
+                                    >>> """
+    choice = input(message)
 
-    # condition and logic
+    # condition
     if choice == "1" or choice.lower() == "save money":
-        # ask the user, how much money do they want to Save
         save_money(login_name)
-
     elif choice == "2" or choice.lower() == "withdraw":
-        # ask the user, how much money do they want to withdraw.
-        # If the money after being withdraw is less than 5 dollar,
-        # then it will not make a withdraw transaction.
         withdraw(login_name)
-
     elif choice == "3" or choice.lower() == "check balance":
-        # printing the user Account balance
         check_balance(login_name)
-
     elif choice == "4" or choice.lower() == "back":
-        # back to the welcome() function
         welcome()
-
     else:
-        # printing a warning message
-        print("Invalid Input !")
+        message = """
 
-        # confirmation from the user
-        input("\npress ENTER for repeat the login")
+                                Invalid Input !
 
-        # back to the login() function
+
+                        *press ENTER for repeat the login
+        """
+        print(message)
+        input()
+
+        # back
         login()
 
 
+def last_choice(account_name):
+    clearLoad.loadingAnimation()
+    
+    message = """
+                    Do you want to do another transaction? (Y / n)
+    
+                                    >>> """
+    lastConfirmation = input(message)
+    # condition
+    if lastConfirmation.upper() == "Y":
+        banking_choice(account_name)
+    elif lastConfirmation.upper() == "N":
+        welcome()
+    else:
+        print("\n\n\t\t\t\tInvalid Input !")
+
+        sleep(2)
+        # repeat the input
+        last_choice(account_name)
+
+
 def save_money(account_name):
-    # called this function, for make a loading animation and a sleep time
     clearLoad.loadingAnimation()
     sleep(0.5)
 
-    # ask the user how much money that they want to save
-    save = int(input("Enter the Money Balance that you want to save: $ "))
-
-    # make a sleep time for a sec
+    saveMoney = int(input("\n\t\tEnter the Money Balance that you want to save: $ "))
+    
+    # update the money balance
+    account_balance[account_name] += saveMoney
+    
     sleep(1)
 
-    # information for the user
-    print("\n*Your Balance has been updated")
+    message = f"""
+    
+                        Your Balance has been Updated
 
-    # update the money balance
-    account_balance[account_name] += save
+                            (Main Balance: ${account_balance[account_name]})
 
-    # printing the main balance of the account
-    print(f"\nMain Balance: ${account_balance[account_name]}")
 
-    # confirmation from the user
-    input("\n\npress ENTER for continue")
+                          *press ENTER for continue
+    """
+    print(message)
+    input()
 
-    # last confimation from the user
+    # last confirm
     last_choice(account_name)
-
-    # back to the login() function
-    login()
 
 
 def withdraw(account_name):
-    # called this function, for make a loading animation and a sleep time
     clearLoad.loadingAnimation()
     sleep(0.5)
 
-    # asking an input from the user
-    money_withdraw = int(
-        input("Enter the Money Balance that you want to withdraw it: $ "))
+    withdrawMoney = int(input("\n\tEnter the Money Balance that you want to withdraw it: $ "))
 
-    # make a sleep time for a sec
     sleep(1)
+    # condition
+    a = "You must have minimum $5 in your account !"
+    if account_balance[account_name] - withdrawMoney < 5:
+        message = """
+                    You can't withdraw your money right now 
+            Because if you doing it, your balance is become less than $5
+                    
+            BANK RULES: You must have minimum $5 balance in your account !
 
-    # condition and logic
-    if account_balance[account_name] - money_withdraw < 5:
-        # printing a warning message
-        print("\nYou can't withdraw your money right now! Because if you doing it, your balance is become less than $5.\n\n---> BANK RULES: Your Bank Account must have at least $5 inside it")
 
-        # confirmation from the user
-        input("\n\npress ENTER for continue")
+                            *press ENTER for continue
+        """
+        print(message)
+        input()
 
-        # last confimation from the user
+        # last confirm
         last_choice(account_name)
-
     else:
-        # update the money balance
-        account_balance[account_name] -= money_withdraw
+        # update the Balance
+        account_balance[account_name] -= withdrawMoney
 
-        # printing an information
-        print(
-            f"\nTransaction Success. You withdraw ${money_withdraw} from your Bank Account\n\nMain Balance: ${account_balance[account_name]}")
+        message = f"""
+            Transaction Success. You withdraw ${withdrawMoney} from your Bank Account
+        
+                          (Main Balance: ${account_balance[account_name]})
 
-        # confirmation from the user
-        input("\n\npress ENTER for continue")
 
-        # last confimation from the user
+                        *press ENTER for continue
+        """
+        print(message)
+        input()
+
+        # last confirm
         last_choice(account_name)
 
 
 def check_balance(account_name):
-    # called this function, for make a loading animation and a sleep time
     clearLoad.loadingAnimation()
-    sleep(0.5)
+    sleep(1.5)
 
-    # make a sleep time for a sec
-    sleep(1)
+    message = f"""
+                                    Account
 
-    # print the account balance
-    print(
-        f"Account Name: {account_name}\n---> Account Balance: ${account_balance[account_name]}")
+                        - Name: {account_name.upper()}
+                        - Balance: ${account_balance[account_name]}
 
-    # confirmation from the user
-    input("\n\npress ENTER for continue")
 
-    # last confimation from the user
+                            *press ENTER for continue
+    """
+    print(message)
+    input()
+
+    # last confirm
     last_choice(account_name)
 
-    # return to the login() function
-    login()
 
 
-def last_choice(account_name):
-    # called this function, for make a loading animation and a sleep time
-    clearLoad.loadingAnimation()
-
-    # asking the user what they want
-    end_choice = input(
-        "Do you want to do another transaction? (Y / N)\n\n>>> ")
-
-    # make a sleep time for a sec
-    sleep(1)
-
-    # condition and logic
-    if end_choice.upper() == "Y":
-        # back to the login() function
-        banking_choice(account_name)
-
-    elif end_choice.upper() == "N":
-        # return to the first start
-        welcome()
-    else:
-        # printing a warning message
-        print("\nInvalid Input !")
-
-        # goes to the same function
-        last_choice(account_name)
-
-
+# start the program 
 if __name__ == "__main__":
-    # start the program
     welcome()
