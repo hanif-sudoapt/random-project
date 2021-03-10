@@ -5,7 +5,6 @@ from time import sleep
 # and for me it's like a cool animation that can be used in the terminal :)
 
 
-
 class Loading:
 
     # the core of this class is in here actually 
@@ -33,7 +32,9 @@ class Loading:
         Loading(self.firstCount, self.manyCount, self.sleep_time).clear()
 
         # print text loadingnya, dengan jumlah titik yang ditentukan
-        print("loading" + " . " * self.firstCount)
+        message = """
+                                loading"""
+        print(message + " . " * self.firstCount)
 
 
     def loadingAnimation(self):
@@ -71,11 +72,12 @@ class Typing:
 
 
     # init method
-    def __init__(self, word, blinkingTotal, sleepTime, blinkingCursorSleepTime):
+    def __init__(self, word, blinkingTotal, sleepTime, blinkingCursorSleepTime, reDelete):
         self.word = word # --> the word that we want the computer to retype it
         self.blinkingTotal = blinkingTotal # --> use for how many times the cursor that we want to blink, when the program finish retyping the word
         self.sleepTime = sleepTime # --> a sleep/interval time, between when the computer retype the word
         self.blinkingCursorSleepTime = blinkingCursorSleepTime # --> a sleep/interval time, between when the cursor is blinking
+        self.reDelete = reDelete
 
 
     def typeAnimation(self):
@@ -117,26 +119,28 @@ class Typing:
                 self.loadClear.clear()
                 j += 1
 
-        resultIndex = -1
-        resultLength = len(result) * -1
-        # clearing the word from the terminal
-        while resultIndex > resultLength:
+        if self.reDelete:
 
-            # temporary place for the result
-            tmpResult = result[resultLength:resultIndex]
+            resultIndex = -1
+            resultLength = len(result) * -1
+            # clearing the word from the terminal
+            while resultIndex > resultLength:
 
-            # the same technique that we use before, use the same concept
-            if resultIndex % 2 == 0:
-                print(tmpResult + cursor)
-                sleep(self.sleepTime)
-                self.loadClear.clear()
-                resultIndex += -1   
+                # temporary place for the result
+                tmpResult = result[resultLength:resultIndex]
 
-            elif resultIndex % 2 != 0:
-                print(tmpResult + cursor2)
-                sleep(self.sleepTime)
-                self.loadClear.clear()
-                resultIndex += -1
+                # the same technique that we use before, use the same concept
+                if resultIndex % 2 == 0:
+                    print(tmpResult + cursor)
+                    sleep(self.sleepTime)
+                    self.loadClear.clear()
+                    resultIndex += -1   
 
-        # sleep time in the end
-        sleep(self.blinkingCursorSleepTime)
+                elif resultIndex % 2 != 0:
+                    print(tmpResult + cursor2)
+                    sleep(self.sleepTime)
+                    self.loadClear.clear()
+                    resultIndex += -1
+
+            # sleep time in the end
+            sleep(self.blinkingCursorSleepTime)
