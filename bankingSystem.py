@@ -91,9 +91,9 @@ def sign_up():
     tmp_customer_number = []
 
     try:
-        customer_name = input("\n\t\t\ Full Name >> ")
-        customer_pin = int(input("\t\t/ Bank Pin >> "))
-        customer_balance = int(input("\t\t\ First Balance in your Bank Account >> $ "))
+        customer_name = input("\n\t\t Full Name >> ").upper()
+        customer_pin = int(input("\n\t\t Bank Pin >> "))
+        customer_balance = int(input("\n\t\t First Balance in your Bank Account >> $ "))
 
         sleep(1)
 
@@ -138,11 +138,11 @@ def sign_up():
             printData = f"""
                                    Account Data
 
-                        - Name --> {customer_name}
+                        - Name >> {customer_name.upper()}
 
-                        - Account Number --> {customer_number}
+                        - Account Number >> {customer_number}
 
-                        - Main Balance --> ${customer_balance}
+                        - Main Balance >> ${customer_balance}
             
                                     
                               Data has been stored . . .
@@ -171,7 +171,7 @@ def login():
     clearLoad.loadingAnimation()
     sleep(0.5)
 
-    login_name = input("\n\t\tEnter your Name: ")
+    login_name = input("\n\t\tEnter your Name: ").upper()
     login_pin = int(input("\n\t\tEnter your Account Pin: "))
 
     if login_name in account_pin.keys():
@@ -265,47 +265,26 @@ def last_choice(account_name):
 
 
 def save_money(account_name):
+    # I think there is a bug in this function, and I might fix it later 
+    # the bug is, when we input the money balance that we wanna save with nothing
+    # It will generate to the sign_up function
+
     clearLoad.loadingAnimation()
     sleep(0.5)
 
     saveMoney = int(input("\n\t\tEnter the Money Balance that you want to save: $ "))
     
-    # update the money balance
-    account_balance[account_name] += saveMoney
-    
-    sleep(1)
+    if saveMoney >= 5:
+        # update the money balance
+        account_balance[account_name] += saveMoney
+        
+        sleep(1)
 
-    message = f"""
-    
-                        Your Balance has been Updated
+        message = f"""
+        
+                            Your Balance has been Updated
 
-                            (Main Balance: ${account_balance[account_name]})
-
-
-                          *press ENTER for continue
-    """
-    print(message)
-    input()
-
-    # last confirm
-    last_choice(account_name)
-
-
-def withdraw(account_name):
-    clearLoad.loadingAnimation()
-    sleep(0.5)
-
-    withdrawMoney = int(input("\n\tEnter the Money Balance that you want to withdraw it: $ "))
-
-    sleep(1)
-    # condition
-    a = "You must have minimum $5 in your account !"
-    if account_balance[account_name] - withdrawMoney < 5:
-        message = """
-                    You can't withdraw your money right now 
-            Because if you doing it, your balance is become less than $5
-                    
-            BANK RULES: You must have minimum $5 balance in your account !
+                                (Main Balance: ${account_balance[account_name]})
 
 
                             *press ENTER for continue
@@ -316,22 +295,78 @@ def withdraw(account_name):
         # last confirm
         last_choice(account_name)
     else:
-        # update the Balance
-        account_balance[account_name] -= withdrawMoney
+        sleep(1)
 
-        message = f"""
-            Transaction Success. You withdraw ${withdrawMoney} from your Bank Account
-        
-                          (Main Balance: ${account_balance[account_name]})
+        message = """
+                        
+                        The Minimum Balance that You can Store is $5
 
 
-                        *press ENTER for continue
+                                *press ENTER for continue
         """
         print(message)
         input()
 
-        # last confirm
-        last_choice(account_name)
+        save_money(account_name)
+
+
+def withdraw(account_name):
+    clearLoad.loadingAnimation()
+    sleep(0.5)
+
+    withdrawMoney = int(input("\n\tEnter the Money Balance that you want to withdraw it: $ "))
+
+
+    if withdrawMoney >= 5:
+        sleep(1)
+
+        # condition
+        if account_balance[account_name] - withdrawMoney < 5:
+            message = """
+                        You can't withdraw your money right now 
+                Because if you doing it, your balance is become less than $5
+                        
+                BANK RULES: You must have minimum $5 balance in your account !
+
+
+                                *press ENTER for continue
+            """
+            print(message)
+            input()
+
+            # last confirm
+            last_choice(account_name)
+        else:
+            # update the Balance
+            account_balance[account_name] -= withdrawMoney
+
+            message = f"""
+                Transaction Success. You withdraw ${withdrawMoney} from your Bank Account
+            
+                            (Main Balance: ${account_balance[account_name]})
+
+
+                            *press ENTER for continue
+            """
+            print(message)
+            input()
+
+            # last confirm
+            last_choice(account_name)
+    else:
+        sleep(1)
+
+        message = """
+                        
+                        The Minimum Balance that You can Withdraw is $5
+
+
+                                *press ENTER for repeat
+        """
+        print(message)
+        input()
+
+        withdraw(account_name)
 
 
 def check_balance(account_name):
@@ -342,6 +377,7 @@ def check_balance(account_name):
                                     Account
 
                         - Name: {account_name.upper()}
+                        
                         - Balance: ${account_balance[account_name]}
 
 
