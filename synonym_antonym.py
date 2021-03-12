@@ -88,7 +88,7 @@ def exit_out():
     
     clearLoad.loadingAnimation()
 
-    retype = Typing("Thanks for using this program :)", 3, 0.1, 0.3)
+    retype = Typing("Thanks for using this program :)", 3, 0.1, 0.3, True)
     retype.typeAnimation()
 
     # for clear the entire screen before
