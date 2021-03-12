@@ -91,7 +91,7 @@ while run:
        # loading animation and clear the screen before
         clearLoad.loadingAnimation()
 
-        retype = Typing("Bye .. Bye ..", 3, 0.2, 0.3)
+        retype = Typing("Bye .. Bye ..", 3, 0.2, 0.3, False)
         retype.typeAnimation()
         break
 
